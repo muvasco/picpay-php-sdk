@@ -31,16 +31,20 @@ class Payment implements \JsonSerializable
      * @param string $referenceId;
      * @param string $callbackUrl;
      * @param double $value;
+     * @param string $expiresAt;
      * @param Buyer $buyer;
      * @param string $returnUrl;
      */
-    public function __construct($referenceId, $callbackUrl, $value, $buyer, $returnUrl = '')
+    public function __construct($referenceId, $callbackUrl, $value, $expiresAt = false, $buyer, $returnUrl = '')
     {
         $this->referenceId = $referenceId;
         $this->callbackUrl = $callbackUrl;
         $this->value = $value;
         $this->buyer = $buyer;
         $this->returnUrl = $returnUrl;
+
+        if (!empty($expiresAt))
+            $this->expiresAt = $expiresAt;
     }
 
     /**
@@ -167,6 +171,30 @@ class Payment implements \JsonSerializable
     public function setReturnUrl($returnUrl)
     {
         $this->returnUrl = $returnUrl;
+
+        return $this;
+    }
+
+        /**
+     * Get the value of expireAt
+     *
+     * @return string
+     */
+    public function getExpireAt()
+    {
+        return $this->expireAt;
+    }
+
+    /**
+     * Set the value of returnUrl
+     *
+     * @param string $returnUrl
+     *
+     * @return  self
+     */
+    public function setExpireAt($expireAt)
+    {
+        $this->expireAt = $expireAt;
 
         return $this;
     }
